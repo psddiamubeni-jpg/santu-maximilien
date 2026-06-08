@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paroisse Saint Maximilien de Kolbe</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+          },
+          colors: {
+            parish: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#1e3a5f',
+              600: '#1a3355',
+              700: '#152b4a',
+              800: '#0f1f36',
+              900: '#0a1628',
+            },
+            gold: {
+              50: '#fefce8',
+              100: '#fef9c3',
+              200: '#fef08a',
+              300: '#fde047',
+              400: '#d4a843',
+              500: '#c9a84c',
+              600: '#a3853a',
+              700: '#7c642c',
+              800: '#5c4a20',
+              900: '#3d3115',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; }
+    .font-serif { font-family: 'Playfair Display', serif; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-up {
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+    }
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+    .delay-500 { animation-delay: 0.5s; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-gradient {
+      background: linear-gradient(to bottom, rgba(10,22,40,0.7), rgba(30,58,95,0.5), rgba(10,22,40,0.85));
+    }
+
+    .schedule-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -12px rgba(30,58,95,0.15);
+    }
+
+    .nav-scrolled {
+      background: rgba(255,255,255,0.95) !important;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .nav-scrolled .nav-link { color: #1c1917 !important; }
+    .nav-scrolled .nav-logo { color: #1e3a5f !important; }
+    .nav-scrolled .nav-btn {
+      background: #1e3a5f !important;
+      color: #fff !important;
+    }
+
+    .cross-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border: 2px solid #c9a84c;
+      border-radius: 50%;
+      color: #c9a84c;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    ::selection {
+      background: #1e3a5f;
+      color: #fff;
+    }
+
+    .activity-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1e3a5f;
+      color: #fff;
+      padding: 16px 24px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      z-index: 9999;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="bg-stone-50 text-stone-900 antialiased">
+
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="flex items-center justify-between h-16 md:h-20">
+        <a href="#accueil" class="flex items-center gap-3 nav-logo text-white transition-colors duration-300">
+          <span class="iconify text-gold-400 text-2xl" data-icon="mdi:cross"></span>
+          <span class="font-serif text-lg font-semibold tracking-tight">St Maximilien de Kolbe</span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#accueil" class="nav-link text-white/90 text-sm font-medium hover:text-gold-400 transition-colors">Accueil</a>
+          <a href="#horaires" class="nav-link text-white/90 text-sm font-medium hover:text-gold-400 transition-colors">Horaires</a>
+          <a href="#activites" class="nav-link text-white/90 text-sm font-medium hover:text-gold-400 transition-colors">Activités</a>
+          <a href="#sacrements" class="nav-link text-white/90 text-sm font-medium hover:text-gold-400 transition-colors">Sacrements</a>
+          <a href="#galerie" class="nav-link text-white/90 text-sm font-medium hover:text-gold-400 transition-colors">Galerie</a>
+          <a href="#contact" class="nav-link text-white/90 text-sm font-medium hover:text-gold-400 transition-colors">Contact</a>
+          <a href="#contact" class="nav-btn bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full hover:bg-gold-400 hover:border-gold-400 transition-all">Nous trouver</a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden nav-link text-white p-2" aria-label="Menu">
+          <span class="iconify text-2xl" data-icon="mdi:menu"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden bg-white/95 backdrop-blur-md border-t border-stone-200">
+      <div class="px-6 py-6 space-y-4">
+        <a href="#accueil" class="block text-stone-900 text-sm font-medium py-2 mobile-link">Accueil</a>
+        <a href="#horaires" class="block text-stone-900 text-sm font-medium py-2 mobile-link">Horaires</a>
+        <a href="#activites" class="block text-stone-900 text-sm font-medium py-2 mobile-link">Activités</a>
+        <a href="#sacrements" class="block text-stone-900 text-sm font-medium py-2 mobile-link">Sacrements</a>
+        <a href="#galerie" class="block text-stone-900 text-sm font-medium py-2 mobile-link">Galerie</a>
+        <a href="#contact" class="block text-stone-900 text-sm font-medium py-2 mobile-link">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="accueil" class="relative h-screen flex items-center justify-center overflow-hidden">
+    <img src="https://z-cdn-media.chatglm.cn/files/c1c3cc00-9494-4830-bd5d-aac51bb48885.jpeg?auth_key=1880742185-2ae0b001a21e4d8ab964831ba7e83d6a-0-2474bae60f23b8fb71e32688a3a1f9aa" 
+         alt="Église Saint Maximilien de Kolbe" 
+         class="absolute inset-0 w-full h-full object-cover object-center">
+    <div class="hero-gradient absolute inset-0"></div>
+
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      <div class="animate-fade-in-up">
+        <span class="inline-flex items-center gap-2 text-gold-400 text-xs font-bold uppercase tracking-[0.2em] mb-6">
+          <span class="iconify" data-icon="mdi:cross"></span>
+          Paroisse Catholique
+        </span>
+      </div>
+      <h1 class="animate-fade-in-up delay-100 font-serif text-4xl md:text-6xl lg:text-7xl font-semibold text-white leading-[1.1] tracking-tight mb-6">
+        Saint Maximilien<br>de Kolbe
+      </h1>
+      <p class="animate-fade-in-up delay-200 text-white/80 text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto mb-10">
+        « Il n'y a pas de plus grand amour que de donner sa vie pour ceux qu'on aime. »
+      </p>
+      <div class="animate-fade-in-up delay-300 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#horaires" class="bg-gold-400 text-parish-800 text-xs font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-gold-300 hover:scale-105 transition-all">
+          Horaires des messes
+        </a>
+        <a href="#activites" class="bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-white/20 transition-all">
+          Nos activités
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <span class="iconify text-white/50 text-2xl" data-icon="mdi:chevron-down"></span>
+    </div>
+  </section>
+
+  <!-- Introduction Section -->
+  <section class="py-20 md:py-32 bg-white">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+        <div class="reveal">
+          <span class="text-gold-500 text-xs font-bold uppercase tracking-[0.2em] mb-4 block">Bienvenue</span>
+          <h2 class="font-serif text-3xl md:text-5xl font-medium tracking-tight text-stone-900 mb-6">
+            Une communauté<br>vivante de foi
+          </h2>
+          <p class="text-stone-600 text-lg font-light leading-relaxed mb-6">
+            La paroisse Saint Maximilien de Kolbe vous accueille chaleureusement. Nommée en l'honneur de saint Maximilien Kolbe, ce prêtre franciscain polonais qui donna sa vie à Auschwitz pour sauver un père de famille, notre communauté s'efforce de vivre cet amour héroïque au quotidien.
+          </p>
+          <p class="text-stone-600 text-lg font-light leading-relaxed mb-8">
+            Nous vous invitons à rejoindre notre communauté pour prier, célébrer et grandir ensemble dans la foi du Christ.
+          </p>
+          <div class="flex items-center gap-6">
+            <div class="flex items-center gap-3">
+              <div class="activity-icon bg-parish-50 text-parish-500">
+                <span class="iconify" data-icon="mdi:account-group"></span>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-stone-900">Communauté</p>
+                <p class="text-xs text-stone-500">Unis dans la prière</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="activity-icon bg-gold-50 text-gold-600">
+                <span class="iconify" data-icon="mdi:candelabra"></span>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-stone-900">Célébration</p>
+                <p class="text-xs text-stone-500">Vivre les sacrements</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal delay-200">
+          <div class="relative">
+            <img src="https://z-cdn-media.chatglm.cn/files/e04161dc-160d-4886-976a-190ae06b702b.jpeg?auth_key=1880742185-349abef38eef4c4cb9976070c3af6d85-0-c4dbf41770fdba14d3592bee93f6d7e6"
+                 alt="Intérieur de l'église - Autel"
+                 class="w-full h-[500px] object-cover rounded-2xl shadow-lg">
+            <div class="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-xl p-5 max-w-[240px]">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="iconify text-gold-500 text-xl" data-icon="mdi:cross"></span>
+                <p class="font-serif text-sm font-semibold text-stone-900">Saint Maximilien Kolbe</p>
+              </div>
+              <p class="text-xs text-stone-500 leading-relaxed">1894–1941 — Martyr de la charité, patron des prisonniers et des journalistes</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Horaires Section -->
+  <section id="horaires" class="py-20 md:py-32 bg-stone-50">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="text-center mb-16 reveal">
+        <span class="text-gold-500 text-xs font-bold uppercase tracking-[0.2em] mb-4 block">Horaires</span>
+        <h2 class="font-serif text-3xl md:text-5xl font-medium tracking-tight text-stone-900 mb-4">
+          Messes et célébrations
+        </h2>
+        <p class="text-stone-500 text-lg font-light max-w-2xl mx-auto">
+          Retrouvez ici les horaires de toutes les célébrations de notre paroisse
+        </p>
+      </div>
+
+      <!-- Main Schedule Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+
+        <!-- Sunday Mass -->
+        <div class="reveal schedule-card bg-white rounded-2xl p-8 border border-stone-200 transition-all duration-300 hover:border-gold-400/50">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 bg-parish-500 rounded-xl flex items-center justify-center">
+              <span class="iconify text-white text-xl" data-icon="mdi:church"></span>
+            </div>
+            <div>
+              <h3 class="font-serif text-xl font-semibold text-stone-900">Messes dominicales</h3>
+              <p class="text-xs text-stone-500 uppercase tracking-wider font-bold">Dimanche</p>
+            </div>
+          </div>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between py-3 border-b border-stone-100">
+              <span class="text-stone-600 text-sm">Messe anticipée</span>
+              <span class="font-semibold text-parish-500 text-sm">Samedi 18h00</span>
+            </div>
+            <div class="flex items-center justify-between py-3 border-b border-stone-100">
+              <span class="text-stone-600 text-sm">Première messe</span>
+              <span class="font-semibold text-parish-500 text-sm">7h00</span>
+            </div>
+            <div class="flex items-center justify-between py-3 border-b border-stone-100">
+              <span class="text-stone-600 text-sm">Messe principale</span>
+              <span class="font-semibold text-parish-500 text-sm">9h30</span>
+            </div>
+            <div class="flex items-center justify-between py-3">
+              <span class="text-stone-600 text-sm">Dernière messe</span>
+              <span class="font-semibold text-parish-500 text-sm">11h00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weekday Mass -->
+        <div class="reveal delay-100 schedule-card bg-white rounded-2xl p-8 border border-stone-200 transition-all duration-300 hover:border-gold-400/50">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 bg-gold-500 rounded-xl flex items-center justify-center">
+              <span class="iconify text-white text-xl" data-icon="mdi:candelabra"></span>
+            </div>
+            <div>
+              <h3 class="font-serif text-xl font-semibold text-stone-900">Messes en semaine</h3>
+              <p class="text-xs text-stone-500 uppercase tracking-wider font-bold">Lundi au Samedi</p>
+            </div>
+          </div>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between py-3 border-b border-stone-100">
+              <span class="text-stone-600 text-sm">Lundi – Mercredi – Vendredi</span>
+              <span class="font-semibold text-parish-500 text-sm">6h30</span>
+            </div>
+            <div class="flex items-center justify-between py-3 border-b border-stone-100">
+              <span class="text-stone-600 text-sm">Mardi – Jeudi – Samedi</span>
+              <span class="font-semibold text-parish-500 text-sm">18h00</span>
+            </div>
+            <div class="flex items-center justify-between py-3">
+              <span class="text-stone-600 text-sm">Chapelet avant la messe</span>
+              <span class="font-semibold text-parish-500 text-sm">17h30</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Confessions & Adoration -->
+        <div class="reveal delay-200 schedule-card bg-white rounded-2xl p-8 border border-stone-200 transition-all duration-300 hover:border-gold-400/50">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 bg-stone-800 rounded-xl flex items-center justify-center">
+              <span class="iconify text-white text-xl" data-icon="mdi:hands-pray"></span>
+            </div>
+            <div>
+              <h3 class="font-serif text-xl font-semibold text-stone-900">Confessions & Adoration</h3>
+              <p class="text-xs text-stone-500 uppercase tracking-wider font-bold">Toute la semaine</p>
+            </div>
+          </div>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between py-3 border-b border-stone-100">
+              <span class="text-stone-600 text-sm">Confessions</span>
+              <span class="font-semibold text-parish-500 text-sm">Sam. 16h00–17h30</span>
+            </div>
+            <div class="flex items-center justify-between py-3 border-b border-stone-100">
+              <span class="text-stone-600 text-sm">Adoration du Saint-Sacrement</span>
+              <span class="font-semibold text-parish-500 text-sm">Jeu. 17h00–18h00</span>
+            </div>
+            <div class="flex items-center justify-between py-3">
+              <span class="text-stone-600 text-sm">Chapelet quotidien</span>
+              <span class="font-semibold text-parish-500 text-sm">17h30</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Full Weekly Schedule Table -->
+      <div class="reveal bg-white rounded-2xl border border-stone-200 overflow-hidden">
+        <div class="bg-parish-500 px-8 py-5">
+          <h3 class="font-serif text-xl font-semibold text-white">Horaires complets de la semaine</h3>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-stone-200 bg-stone-50">
+                <th class="text-left px-8 py-4 text-xs font-bold uppercase tracking-wider text-stone-500">Jour</th>
+                <th class="text-left px-8 py-4 text-xs font-bold uppercase tracking-wider text-stone-500">Messe</th>
+                <th class="text-left px-8 py-4 text-xs font-bold uppercase tracking-wider text-stone-500">Confession</th>
+                <th class="text-left px-8 py-4 text-xs font-bold uppercase tracking-wider text-stone-500">Autre</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-stone-100 hover:bg-stone-50 transition-colors">
+                <td class="px-8 py-4 font-semibold text-stone-900">Lundi</td>
+                <td class="px-8 py-4 text-stone-600">6h30</td>
+                <td class="px-8 py-4 text-stone-600">Sur rendez-vous</td>
+                <td class="px-8 py-4 text-stone-600">—</td>
+              </tr>
+              <tr class="border-b border-stone-100 hover:bg-stone-50 transition-colors">
+                <td class="px-8 py-4 font-semibold text-stone-900">Mardi</td>
+                <td class="px-8 py-4 text-stone-600">18h00</td>
+                <td class="px-8 py-4 text-stone-600">Sur rendez-vous</td>
+                <td class="px-8 py-4 text-stone-600">Chapelet 17h30</td>
+              </tr>
+              <tr class="border-b border-stone-100 hover:bg-stone-50 transition-colors">
+                <td class="px-8 py-4 font-semibold text-stone-900">Mercredi</td>
+                <td class="px-8 py-4 text-stone-600">6h30</td>
+                <td class="px-8 py-4 text-stone-600">Sur rendez-vous</td>
+                <td class="px-8 py-4 text-stone-600">Catéchisme 15h00</td>
+              </tr>
+              <tr class="border-b border-stone-100 hover:bg-stone-50 transition-colors">
+                <td class="px-8 py-4 font-semibold text-stone-900">Jeudi</td>
+                <td class="px-8 py-4 text-stone-600">18h00</td>
+                <td class="px-8 py-4 text-stone-600">17h00 – 17h50</td>
+                <td class="px-8 py-4 text-stone-600">Adoration 17h00</td>
+              </tr>
+              <tr class="border-b border-stone-100 hover:bg-stone-50 transition-colors">
+                <td class="px-8 py-4 font-semibold text-stone-900">Vendredi</td>
+                <td class="px-8 py-4 text-stone-600">6h30</td>
+                <td class="px-8 py-4 text-stone-600">Sur rendez-vous</td>
+                <td class="px-8 py-4 text-stone-600">Chemin de Croix (Carême)</td>
+              </tr>
+              <tr class="border-b border-stone-100 hover:bg-stone-50 transition-colors">
+                <td class="px-8 py-4 font-semibold text-stone-900">Samedi</td>
+                <td class="px-8 py-4 text-stone-600">18h00 (anticipée)</td>
+                <td class="px-8 py-4 text-stone-600">16h00 – 17h30</td>
+                <td class="px-8 py-4 text-stone-600">Chapelet 17h30</td>
+              </tr>
+              <tr class="hover:bg-stone-50 transition-colors bg-parish-50/50">
+                <td class="px-8 py-4 font-bold text-parish-500">Dimanche</td>
+                <td class="px-8 py-4 text-stone-600">7h00 / 9h30 / 11h00</td>
+                <td class="px-8 py-4 text-stone-600">Après chaque messe</td>
+                <td class="px-8 py-4 text-stone-600">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Activities Section -->
+  <section id="activites" class="py-20 md:py-32 bg-white">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="text-center mb-16 reveal">
+        <span class="text-gold-500 text-xs font-bold uppercase tracking-[0.2em] mb-4 block">Vie paroissiale</span>
+        <h2 class="font-serif text-3xl md:text-5xl font-medium tracking-tight text-stone-900 mb-4">
+          Nos activités
+        </h2>
+        <p class="text-stone-500 text-lg font-light max-w-2xl mx-auto">
+          Découvrez les différentes activités qui animent notre communauté paroissiale
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Activity 1: Catéchisme -->
+        <div class="reveal group bg-white rounded-2xl border border-stone-200 overflow-hidden hover:border-gold-400/50 hover:shadow-lg transition-all duration-300">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://z-cdn-media.chatglm.cn/files/59234f06-7a80-4ff3-b8d8-d93408f591a2.jpeg?auth_key=1880742185-5693f0b8f1304a368fcb8c7ffa04da37-0-d3e69aa4e27477ce469ab5cc1a1190ea"
+                 alt="Intérieur église"
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-parish-800/60 to-transparent"></div>
+            <div class="absolute bottom-4 left-4">
+              <span class="bg-white/90 text-parish-500 text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full">Enfants</span>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="iconify text-parish-500 text-2xl" data-icon="mdi:book-open-variant"></span>
+              <h3 class="font-serif text-xl font-semibold text-stone-900">Catéchisme</h3>
+            </div>
+            <p class="text-stone-500 text-sm leading-relaxed mb-4">
+              L'éveil à la foi et la catéchèse pour les enfants de 6 à 14 ans. Préparation à la première communion et à la profession de foi.
+            </p>
+            <div class="flex items-center gap-2 text-xs text-stone-400">
+              <span class="iconify" data-icon="mdi:clock-outline"></span>
+              <span>Mercredi 15h00 – 17h00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity 2: Groupe de prière -->
+        <div class="reveal delay-100 group bg-white rounded-2xl border border-stone-200 overflow-hidden hover:border-gold-400/50 hover:shadow-lg transition-all duration-300">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://z-cdn-media.chatglm.cn/files/9e721e33-e9ac-490f-9cdd-bd79f8b28c62.jpeg?auth_key=1880742185-bdc3838bbb2840d1b5e8475f3b450dd3-0-7b4d77fc832e454686cf757b49e20170"
+                 alt="Intérieur église - bancs"
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-parish-800/60 to-transparent"></div>
+            <div class="absolute bottom-4 left-4">
+              <span class="bg-white/90 text-gold-600 text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full">Prière</span>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="iconify text-gold-600 text-2xl" data-icon="mdi:hands-pray"></span>
+              <h3 class="font-serif text-xl font-semibold text-stone-900">Groupe de prière</h3>
+            </div>
+            <p class="text-stone-500 text-sm leading-relaxed mb-4">
+              Temps de prière communautaire, louange et partage de la Parole. Ouvert à tous, venez prier ensemble et vivre la fraternité.
+            </p>
+            <div class="flex items-center gap-2 text-xs text-stone-400">
+              <span class="iconify" data-icon="mdi:clock-outline"></span>
+              <span>Vendredi 19h00 – 20h30</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity 3: Chapelet -->
+        <div class="reveal delay-200 group bg-white rounded-2xl border border-stone-200 overflow-hidden hover:border-gold-400/50 hover:shadow-lg transition-all duration-300">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://z-cdn-media.chatglm.cn/files/7a464dba-a4c5-41c5-9898-b5aeb9edf990.jpeg?auth_key=1880742185-f562b4f97b8c4f17bb02ed77ca35531b-0-149de4d63a10a8a6ff691fa9ae49dd88"
+                 alt="Chemin du Rosaire"
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-parish-800/60 to-transparent"></div>
+            <div class="absolute bottom-4 left-4">
+              <span class="bg-white/90 text-parish-500 text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full">Méditation</span>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="iconify text-parish-500 text-2xl" data-icon="mdi:cross"></span>
+              <h3 class="font-serif text-xl font-semibold text-stone-900">Chapelet & Rosaire</h3>
+            </div>
+            <p class="text-stone-500 text-sm leading-relaxed mb-4">
+              Récitation quotidienne du chapelet. Les mystères du rosaire sont médités chaque jour devant le Saint-Sacrement exposé.
+            </p>
+            <div class="flex items-center gap-2 text-xs text-stone-400">
+              <span class="iconify" data-icon="mdi:clock-outline"></span>
+              <span>Tous les jours 17h30</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity 4: Aumônerie des jeunes -->
+        <div class="reveal group bg-white rounded-2xl border border-stone-200 overflow-hidden hover:border-gold-400/50 hover:shadow-lg transition-all duration-300">
+          <div class="p-6">
+            <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-4">
+              <span class="iconify text-blue-500 text-2xl" data-icon="mdi:account-heart"></span>
+            </div>
+            <h3 class="font-serif text-xl font-semibold text-stone-900 mb-2">Aumônerie des jeunes</h3>
+            <p class="text-stone-500 text-sm leading-relaxed mb-4">
+              Accompagnement spirituel des adolescents et jeunes adultes. Temps de partage, d'échange et de formation dans la foi.
+            </p>
+            <div class="flex items-center gap-2 text-xs text-stone-400">
+              <span class="iconify" data-icon="mdi:clock-outline"></span>
+              <span>Samedi 10h00 – 12h00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity 5: Chorale -->
+        <div class="reveal delay-100 group bg-white rounded-2xl border border-stone-200 overflow-hidden hover:border-gold-400/50 hover:shadow-lg transition-all duration-300">
+          <div class="p-6">
+            <div class="w-14 h-14 bg-purple-50 rounded-2xl flex items-center justify-center mb-4">
+              <span class="iconify text-purple-500 text-2xl" data-icon="mdi:music-note"></span>
+            </div>
+            <h3 class="font-serif text-xl font-semibold text-stone-900 mb-2">Chorale paroissiale</h3>
+            <p class="text-stone-500 text-sm leading-relaxed mb-4">
+              La chorale anime les célébrations dominicales et les grandes fêtes liturgiques. Répétitions hebdomadaires ouvertes à tous les choristes.
+            </p>
+            <div class="flex items-center gap-2 text-xs text-stone-400">
+              <span class="iconify" data-icon="mdi:clock-outline"></span>
+              <span>Mercredi 19h00 – 21h00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity 6: Caritas -->
+        <div class="reveal delay-200 group bg-white rounded-2xl border border-stone-200 overflow-hidden hover:border-gold-400/50 hover:shadow-lg transition-all duration-300">
+          <div class="p-6">
+            <div class="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center mb-4">
+              <span class="iconify text-green-500 text-2xl" data-icon="mdi:hand-heart"></span>
+            </div>
+            <h3 class="font-serif text-xl font-semibold text-stone-900 mb-2">Caritas paroissiale</h3>
+            <p class="text-stone-500 text-sm leading-relaxed mb-4">
+              Actions de solidarité, aide alimentaire, visite des malades et des personnes isolées. Au service des plus vulnérables de notre communauté.
+            </p>
+            <div class="flex items-center gap-2 text-xs text-stone-400">
+              <span class="iconify" data-icon="mdi:clock-outline"></span>
+              <span>Permanence : Samedi 9h00 – 12h00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity 7: Légion de Marie -->
+        <div class="reveal group bg-white rounded-2xl border border-stone-200 overflow-hidden hover:border-gold-400/50 hover:shadow-lg transition-all duration-300">
+          <div class="p-6">
+            <div class="w-14 h-14 bg-rose-50 rounded-2xl flex items-center justify-center mb-4">
+              <span class="iconify text-rose-500 text-2xl" data-icon="mdi:shield-cross"></span>
+            </div>
+            <h3 class="font-serif text-xl font-semibold text-stone-900 mb-2">Légion de Marie</h3>
+            <p class="text-stone-500 text-sm leading-relaxed mb-4">
+              Association de laïcs au service de la prière et de l'évangélisation. Visites aux malades, prière communautaire et œuvres de miséricorde.
+            </p>
+            <div class="flex items-center gap-2 text-xs text-stone-400">
+              <span class="iconify" data-icon="mdi:clock-outline"></span>
+              <span>Dimanche après la messe de 9h30</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity 8: Enseignement biblique -->
+        <div class="reveal delay-100 group bg-white rounded-2xl border border-stone-200 overflow-hidden hover:border-gold-400/50 hover:shadow-lg transition-all duration-300">
+          <div class="p-6">
+            <div class="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center mb-4">
+              <span class="iconify text-amber-600 text-2xl" data-icon="mdi:book-cross"></span>
+            </div>
+            <h3 class="font-serif text-xl font-semibold text-stone-900 mb-2">Enseignement biblique</h3>
+            <p class="text-stone-500 text-sm leading-relaxed mb-4">
+              Étude et méditation de la Parole de Dieu. Partage en petits groupes pour approfondir les Écritures et la doctrine catholique.
+            </p>
+            <div class="flex items-center gap-2 text-xs text-stone-400">
+              <span class="iconify" data-icon="mdi:clock-outline"></span>
+              <span>Mardi 19h00 – 20h30</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity 9: Mouvement des familles -->
+        <div class="reveal delay-200 group bg-white rounded-2xl border border-stone-200 overflow-hidden hover:border-gold-400/50 hover:shadow-lg transition-all duration-300">
+          <div class="p-6">
+            <div class="w-14 h-14 bg-teal-50 rounded-2xl flex items-center justify-center mb-4">
+              <span class="iconify text-teal-500 text-2xl" data-icon="mdi:home-heart"></span>
+            </div>
+            <h3 class="font-serif text-xl font-semibold text-stone-900 mb-2">Mouvement des familles</h3>
+            <p class="text-stone-500 text-sm leading-relaxed mb-4">
+              Accompagnement et ressourcement pour les couples et les familles. Retraites, week-ends de formation et temps de partage.
+            </p>
+            <div class="flex items-center gap-2 text-xs text-stone-400">
+              <span class="iconify" data-icon="mdi:clock-outline"></span>
+              <span>1er samedi du mois 14h00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sacrements Section -->
+  <section id="sacrements" class="py-20 md:py-32 bg-parish-500 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-20 left-20 w-96 h-96 bg-gold-400 rounded-full blur-[120px]"></div>
+      <div class="absolute bottom-20 right-20 w-64 h-64 bg-white rounded-full blur-[100px]"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <span class="text-gold-400 text-xs font-bold uppercase tracking-[0.2em] mb-4 block">Sacrements</span>
+        <h2 class="font-serif text-3xl md:text-5xl font-medium tracking-tight text-white mb-4">
+          Les sacrements de l'Église
+        </h2>
+        <p class="text-white/70 text-lg font-light max-w-2xl mx-auto">
+          Les sept sacrements sont les signes visibles de la grâce invisible de Dieu
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Baptême -->
+        <div class="reveal group bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/15 hover:border-gold-400/30 transition-all duration-300">
+          <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-gold-400/20 transition-colors">
+            <span class="iconify text-gold-400 text-2xl" data-icon="mdi:water"></span>
+          </div>
+          <h3 class="font-serif text-xl font-semibold text-white mb-2">Baptême</h3>
+          <p class="text-white/60 text-sm leading-relaxed mb-4">Naissance à la vie divine. Le sacrement qui fait de nous des enfants de Dieu.</p>
+          <div class="border-t border-white/10 pt-4">
+            <p class="text-gold-400 text-xs font-semibold uppercase tracking-wider">Inscription</p>
+            <p class="text-white/50 text-xs mt-1">Se présenter au bureau paroissial un mois avant la date souhaitée</p>
+          </div>
+        </div>
+
+        <!-- Eucharistie -->
+        <div class="reveal delay-100 group bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/15 hover:border-gold-400/30 transition-all duration-300">
+          <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-gold-400/20 transition-colors">
+            <span class="iconify text-gold-400 text-2xl" data-icon="mdi:bread-slice"></span>
+          </div>
+          <h3 class="font-serif text-xl font-semibold text-white mb-2">Eucharistie</h3>
+          <p class="text-white/60 text-sm leading-relaxed mb-4">Source et sommet de la vie chrétienne. La communion au Corps du Christ.</p>
+          <div class="border-t border-white/10 pt-4">
+            <p class="text-gold-400 text-xs font-semibold uppercase tracking-wider">1ère Communion</p>
+            <p class="text-white/50 text-xs mt-1">Deux ans de catéchisme obligatoires</p>
+          </div>
+        </div>
+
+        <!-- Confirmation -->
+        <div class="reveal delay-200 group bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/15 hover:border-gold-400/30 transition-all duration-300">
+          <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-gold-400/20 transition-colors">
+            <span class="iconify text-gold-400 text-2xl" data-icon="mdi:dove"></span>
+          </div>
+          <h3 class="font-serif text-xl font-semibold text-white mb-2">Confirmation</h3>
+          <p class="text-white/60 text-sm leading-relaxed mb-4">Le don de l'Esprit Saint. L'accomplissement de la grâce baptismale.</p>
+          <div class="border-t border-white/10 pt-4">
+            <p class="text-gold-400 text-xs font-semibold uppercase tracking-wider">Préparation</p>
+            <p class="text-white/50 text-xs mt-1">Année de formation avec le curé et les catéchistes</p>
+          </div>
+        </div>
+
+        <!-- Mariage -->
+        <div class="reveal delay-300 group bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/15 hover:border-gold-400/30 transition-all duration-300">
+          <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-gold-400/20 transition-colors">
+            <span class="iconify text-gold-400 text-2xl" data-icon="mdi:ring"></span>
+          </div>
+          <h3 class="font-serif text-xl font-semibold text-white mb-2">Mariage</h3>
+          <p class="text-white/60 text-sm leading-relaxed mb-4">L'alliance sacrée. L'union de l'homme et de la femme devant Dieu.</p>
+          <div class="border-t border-white/10 pt-4">
+            <p class="text-gold-400 text-xs font-semibold uppercase tracking-wider">Préparation</p>
+            <p class="text-white/50 text-xs mt-1">Se présenter 6 mois avant. Session de préparation au mariage obligatoire</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Sacraments Row -->
+      <div class="grid md:grid-cols-3 gap-6 mt-6">
+        <div class="reveal group bg-white/5 border border-white/5 rounded-2xl p-5 hover:bg-white/10 transition-all duration-300">
+          <div class="flex items-center gap-4">
+            <span class="iconify text-gold-400 text-2xl" data-icon="mdi:hospital-box"></span>
+            <div>
+              <h3 class="font-serif text-lg font-semibold text-white">Onction des malades</h3>
+              <p class="text-white/50 text-xs mt-1">Prévenir le prêtre en cas de maladie grave ou d'hospitalisation</p>
+            </div>
+          </div>
+        </div>
+        <div class="reveal delay-100 group bg-white/5 border border-white/5 rounded-2xl p-5 hover:bg-white/10 transition-all duration-300">
+          <div class="flex items-center gap-4">
+            <span class="iconify text-gold-400 text-2xl" data-icon="mdi:account-tie"></span>
+            <div>
+              <h3 class="font-serif text-lg font-semibold text-white">Ordre sacerdotal</h3>
+              <p class="text-white/50 text-xs mt-1">S'informer auprès du curé pour le discernement vocationnel</p>
+            </div>
+          </div>
+        </div>
+        <div class="reveal delay-200 group bg-white/5 border border-white/5 rounded-2xl p-5 hover:bg-white/10 transition-all duration-300">
+          <div class="flex items-center gap-4">
+            <span class="iconify text-gold-400 text-2xl" data-icon="mdi:handshake"></span>
+            <div>
+              <h3 class="font-serif text-lg font-semibold text-white">Réconciliation</h3>
+              <p class="text-white/50 text-xs mt-1">Samedi 16h00 – 17h30 ou sur rendez-vous</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="galerie" class="py-20 md:py-32 bg-stone-50">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="text-center mb-16 reveal">
+        <span class="text-gold-500 text-xs font-bold uppercase tracking-[0.2em] mb-4 block">Galerie</span>
+        <h2 class="font-serif text-3xl md:text-5xl font-medium tracking-tight text-stone-900 mb-4">
+          Notre église
+        </h2>
+        <p class="text-stone-500 text-lg font-light max-w-2xl mx-auto">
+          Découvrez les espaces de prière et de recueillement de notre paroisse
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+        <!-- Gallery 1: Exterior -->
+        <div class="reveal gallery-item col-span-2 row-span-2 relative rounded-2xl overflow-hidden cursor-pointer group">
+          <img src="https://z-cdn-media.chatglm.cn/files/c1c3cc00-9494-4830-bd5d-aac51bb48885.jpeg?auth_key=1880742185-2ae0b001a21e4d8ab964831ba7e83d6a-0-2474bae60f23b8fb71e32688a3a1f9aa"
+               alt="Façade de l'église"
+               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+               style="min-height: 400px;">
+          <div class="absolute inset-0 bg-gradient-to-t from-parish-800/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="absolute bottom-6 left-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <p class="text-white font-serif text-lg font-semibold">Façade principale</p>
+            <p class="text-white/70 text-sm">L'entrée de notre église</p>
+          </div>
+        </div>
+
+        <!-- Gallery 2: Interior altar -->
+        <div class="reveal delay-100 gallery-item relative rounded-2xl overflow-hidden cursor-pointer group">
+          <img src="https://z-cdn-media.chatglm.cn/files/e04161dc-160d-4886-976a-190ae06b702b.jpeg?auth_key=1880742185-349abef38eef4c4cb9976070c3af6d85-0-c4dbf41770fdba14d3592bee93f6d7e6"
+               alt="Autel de l'église"
+               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+               style="min-height: 200px;">
+          <div class="absolute inset-0 bg-gradient-to-t from-parish-800/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <p class="text-white font-serif font-semibold">L'autel</p>
+          </div>
+        </div>
+
+        <!-- Gallery 3: Interior pews -->
+        <div class="reveal delay-200 gallery-item relative rounded-2xl overflow-hidden cursor-pointer group">
+          <img src="https://z-cdn-media.chatglm.cn/files/59234f06-7a80-4ff3-b8d8-d93408f591a2.jpeg?auth_key=1880742185-5693f0b8f1304a368fcb8c7ffa04da37-0-d3e69aa4e27477ce469ab5cc1a1190ea"
+               alt="Bancs de l'église"
+               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+               style="min-height: 200px;">
+          <div class="absolute inset-0 bg-gradient-to-t from-parish-800/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <p class="text-white font-serif font-semibold">La nef</p>
+          </div>
+        </div>
+
+        <!-- Gallery 4: Wide interior -->
+        <div class="reveal delay-100 gallery-item relative rounded-2xl overflow-hidden cursor-pointer group">
+          <img src="https://z-cdn-media.chatglm.cn/files/9e721e33-e9ac-490f-9cdd-bd79f8b28c62.jpeg?auth_key=1880742185-bdc3838bbb2840d1b5e8475f3b450dd3-0-7b4d77fc832e454686cf757b49e20170"
+               alt="Vue intérieure"
+               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+               style="min-height: 200px;">
+          <div class="absolute inset-0 bg-gradient-to-t from-parish-800/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <p class="text-white font-serif font-semibold">Vue d'ensemble</p>
+          </div>
+        </div>
+
+        <!-- Gallery 5: Rosary Garden -->
+        <div class="reveal delay-200 gallery-item col-span-2 relative rounded-2xl overflow-hidden cursor-pointer group">
+          <img src="https://z-cdn-media.chatglm.cn/files/7a464dba-a4c5-41c5-9898-b5aeb9edf990.jpeg?auth_key=1880742185-f562b4f97b8c4f17bb02ed77ca35531b-0-149de4d63a10a8a6ff691fa9ae49dd88"
+               alt="Jardin du Rosaire"
+               class="w-full h-64 md:h-80 object-cover transition-transform duration-700 group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-t from-parish-800/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="absolute bottom-6 left-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <p class="text-white font-serif text-lg font-semibold">Jardin du Rosaire</p>
+            <p class="text-white/70 text-sm">Les mystères du Rosaire</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote Section -->
+  <section class="py-20 md:py-28 bg-white">
+    <div class="max-w-4xl mx-auto px-6 md:px-12 text-center reveal">
+      <span class="iconify text-gold-400 text-4xl mb-8 inline-block" data-icon="mdi:format-quote-open"></span>
+      <blockquote class="font-serif text-2xl md:text-4xl font-medium text-stone-900 leading-snug tracking-tight mb-8">
+        « La haine n'est pas une force créative. Seul l'amour est créatif. »
+      </blockquote>
+      <div class="flex items-center justify-center gap-3">
+        <div class="w-10 h-10 bg-parish-500 rounded-full flex items-center justify-center">
+          <span class="iconify text-white text-sm" data-icon="mdi:cross"></span>
+        </div>
+        <div class="text-left">
+          <p class="font-semibold text-stone-900 text-sm">Saint Maximilien Kolbe</p>
+          <p class="text-stone-400 text-xs">1894 – 1941 • Martyr d'Auschwitz</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upcoming Events -->
+  <section class="py-20 md:py-32 bg-stone-50">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-12 reveal">
+        <div>
+          <span class="text-gold-500 text-xs font-bold uppercase tracking-[0.2em] mb-4 block">Prochainement</span>
+          <h2 class="font-serif text-3xl md:text-4xl font-medium tracking-tight text-stone-900">
+            Événements à venir
+          </h2>
+        </div>
+        <a href="#contact" class="mt-4 md:mt-0 text-sm text-parish-500 font-semibold hover:text-gold-500 transition-colors flex items-center gap-1">
+          Voir le programme complet
+          <span class="iconify" data-icon="mdi:arrow-right"></span>
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Event 1 -->
+        <div class="reveal bg-white rounded-2xl border border-stone-200 p-6 hover:shadow-lg hover:border-gold-400/50 transition-all duration-300">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="bg-parish-500 text-white rounded-xl w-14 h-14 flex flex-col items-center justify-center shrink-0">
+              <span class="text-xs font-bold uppercase leading-none">Juil</span>
+              <span class="text-xl font-bold leading-none">14</span>
+            </div>
+            <div>
+              <h3 class="font-serif text-lg font-semibold text-stone-900">Fête paroissiale</h3>
+              <p class="text-stone-400 text-xs mt-1">10h00 – 18h00</p>
+            </div>
+          </div>
+          <p class="text-stone-500 text-sm leading-relaxed">Célébration de la fête patronale en l'honneur de Saint Maximilien Kolbe. Messe solennelle suivie d'un repas paroissial et d'animations.</p>
+        </div>
+
+        <!-- Event 2 -->
+        <div class="reveal delay-100 bg-white rounded-2xl border border-stone-200 p-6 hover:shadow-lg hover:border-gold-400/50 transition-all duration-300">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="bg-gold-500 text-white rounded-xl w-14 h-14 flex flex-col items-center justify-center shrink-0">
+              <span class="text-xs font-bold uppercase leading-none">Août</span>
+              <span class="text-xl font-bold leading-none">15</span>
+            </div>
+            <div>
+              <h3 class="font-serif text-lg font-semibold text-stone-900">Assomption</h3>
+              <p class="text-stone-400 text-xs mt-1">Messe à 9h30</p>
+            </div>
+          </div>
+          <p class="text-stone-500 text-sm leading-relaxed">Fête de l'Assomption de la Vierge Marie. Messe solennelle et procession mariale autour de l'église.</p>
+        </div>
+
+        <!-- Event 3 -->
+        <div class="reveal delay-200 bg-white rounded-2xl border border-stone-200 p-6 hover:shadow-lg hover:border-gold-400/50 transition-all duration-300">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="bg-stone-800 text-white rounded-xl w-14 h-14 flex flex-col items-center justify-center shrink-0">
+              <span class="text-xs font-bold uppercase leading-none">Sept</span>
+              <span class="text-xl font-bold leading-none">08</span>
+            </div>
+            <div>
+              <h3 class="font-serif text-lg font-semibold text-stone-900">Rentrée catéchisme</h3>
+              <p class="text-stone-400 text-xs mt-1">Inscriptions 9h00 – 12h00</p>
+            </div>
+          </div>
+          <p class="text-stone-500 text-sm leading-relaxed">Inscriptions pour l'année de catéchisme 2025-2026. Les parents sont invités à se présenter avec les enfants au secrétariat.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 md:py-32 bg-white">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="grid md:grid-cols-2 gap-12 md:gap-20">
+
+        <!-- Contact Info -->
+        <div class="reveal">
+          <span class="text-gold-500 text-xs font-bold uppercase tracking-[0.2em] mb-4 block">Contact</span>
+          <h2 class="font-serif text-3xl md:text-5xl font-medium tracking-tight text-stone-900 mb-6">
+            Nous trouver
+          </h2>
+          <p class="text-stone-500 text-lg font-light leading-relaxed mb-10">
+            N'hésitez pas à nous contacter pour toute question, demande de sacrement ou simplement pour nous rendre visite.
+          </p>
+
+          <div class="space-y-6 mb-10">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-parish-50 rounded-xl flex items-center justify-center shrink-0">
+                <span class="iconify text-parish-500 text-xl" data-icon="mdi:map-marker"></span>
+              </div>
+              <div>
+                <h3 class="font-semibold text-stone-900 text-sm mb-1">Adresse</h3>
+                <p class="text-stone-500 text-sm">Paroisse Saint Maximilien de Kolbe<br>Quartier Saint-Michel</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-gold-50 rounded-xl flex items-center justify-center shrink-0">
+                <span class="iconify text-gold-600 text-xl" data-icon="mdi:phone"></span>
+              </div>
+              <div>
+                <h3 class="font-semibold text-stone-900 text-sm mb-1">Téléphone</h3>
+                <p class="text-stone-500 text-sm">+XXX XXX XXX XXX</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-parish-50 rounded-xl flex items-center justify-center shrink-0">
+                <span class="iconify text-parish-500 text-xl" data-icon="mdi:email-outline"></span>
+              </div>
+              <div>
+                <h3 class="font-semibold text-stone-900 text-sm mb-1">Email</h3>
+                <p class="text-stone-500 text-sm">paroisse.stmaximilien@diocese.org</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-gold-50 rounded-xl flex items-center justify-center shrink-0">
+                <span class="iconify text-gold-600 text-xl" data-icon="mdi:clock-outline"></span>
+              </div>
+              <div>
+                <h3 class="font-semibold text-stone-900 text-sm mb-1">Secrétariat paroissial</h3>
+                <p class="text-stone-500 text-sm">Lundi – Vendredi : 8h00 – 12h00 / 15h00 – 18h00<br>Samedi : 9h00 – 12h00</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <a href="#" class="w-10 h-10 bg-stone-100 rounded-full flex items-center justify-center hover:bg-parish-500 hover:text-white text-stone-500 transition-all">
+              <span class="iconify" data-icon="mdi:facebook"></span>
+            </a>
+            <a href="#" class="w-10 h-10 bg-stone-100 rounded-full flex items-center justify-center hover:bg-parish-500 hover:text-white text-stone-500 transition-all">
+              <span class="iconify" data-icon="mdi:youtube"></span>
+            </a>
+            <a href="#" class="w-10 h-10 bg-stone-100 rounded-full flex items-center justify-center hover:bg-green-600 hover:text-white text-stone-500 transition-all">
+              <span class="iconify" data-icon="mdi:whatsapp"></span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="reveal delay-200">
+          <form id="contact-form" class="bg-stone-50 rounded-2xl p-8 md:p-10">
+            <h3 class="font-serif text-2xl font-semibold text-stone-900 mb-6">Envoyez-nous un message</h3>
+
+            <div class="space-y-5">
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-stone-500 mb-2">Nom complet</label>
+                <input type="text" required placeholder="Votre nom"
+                  class="w-full bg-white border border-stone-200 rounded-xl px-4 py-3 text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-parish-500/20 focus:border-parish-500 transition-all">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-stone-500 mb-2">Email</label>
+                <input type="email" required placeholder="votre@email.com"
+                  class="w-full bg-white border border-stone-200 rounded-xl px-4 py-3 text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-parish-500/20 focus:border-parish-500 transition-all">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-stone-500 mb-2">Objet</label>
+                <select required class="w-full bg-white border border-stone-200 rounded-xl px-4 py-3 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-parish-500/20 focus:border-parish-500 transition-all">
+                  <option value="" disabled selected>Choisir un sujet</option>
+                  <option>Demande de baptême</option>
+                  <option>Demande de mariage</option>
+                  <option>Inscription catéchisme</option>
+                  <option>Demande de visite (malade)</option>
+                  <option>Information sur les activités</option>
+                  <option>Autre demande</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-stone-500 mb-2">Message</label>
+                <textarea rows="4" required placeholder="Votre message..."
+                  class="w-full bg-white border border-stone-200 rounded-xl px-4 py-3 text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-parish-500/20 focus:border-parish-500 transition-all resize-none"></textarea>
+              </div>
+
+              <button type="submit" class="w-full bg-parish-500 text-white text-xs font-bold uppercase tracking-wider py-4 rounded-xl hover:bg-parish-600 hover:scale-[1.02] hover:shadow-lg transition-all">
+                Envoyer le message
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Map placeholder -->
+      <div class="mt-16 reveal">
+        <div class="bg-stone-100 rounded-2xl h-80 flex items-center justify-center border border-stone-200 overflow-hidden">
+          <div class="text-center">
+            <span class="iconify text-stone-300 text-5xl mb-3 inline-block" data-icon="mdi:map-marker-radius"></span>
+            <p class="text-stone-400 text-sm">Carte interactive</p>
+            <p class="text-stone-300 text-xs mt-1">Paroisse Saint Maximilien de Kolbe</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-parish-900 text-white">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-20">
+      <div class="grid md:grid-cols-4 gap-10 md:gap-12">
+
+        <!-- Parish Info -->
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="iconify text-gold-400 text-2xl" data-icon="mdi:cross"></span>
+            <span class="font-serif text-xl font-semibold">St Maximilien de Kolbe</span>
+          </div>
+          <p class="text-white/50 text-sm leading-relaxed mb-6 max-w-sm">
+            Paroisse catholique dédiée à Saint Maximilien Kolbe, martyr de la charité. Nous vous accueillons pour prier, célébrer et grandir ensemble dans la foi.
+          </p>
+          <div class="flex items-center gap-4">
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-gold-400 hover:text-parish-900 transition-all">
+              <span class="iconify" data-icon="mdi:facebook"></span>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-gold-400 hover:text-parish-900 transition-all">
+              <span class="iconify" data-icon="mdi:youtube"></span>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-green-600 hover:text-white transition-all">
+              <span class="iconify" data-icon="mdi:whatsapp"></span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h3 class="text-gold-400 text-xs font-bold uppercase tracking-[0.2em] mb-6">Liens rapides</h3>
+          <ul class="space-y-3">
+            <li><a href="#accueil" class="text-white/60 text-sm hover:text-gold-400 transition-colors">Accueil</a></li>
+            <li><a href="#horaires" class="text-white/60 text-sm hover:text-gold-400 transition-colors">Horaires des messes</a></li>
+            <li><a href="#activites" class="text-white/60 text-sm hover:text-gold-400 transition-colors">Activités paroissiales</a></li>
+            <li><a href="#sacrements" class="text-white/60 text-sm hover:text-gold-400 transition-colors">Sacrements</a></li>
+            <li><a href="#galerie" class="text-white/60 text-sm hover:text-gold-400 transition-colors">Galerie</a></li>
+            <li><a href="#contact" class="text-white/60 text-sm hover:text-gold-400 transition-colors">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Schedule Summary -->
+        <div>
+          <h3 class="text-gold-400 text-xs font-bold uppercase tracking-[0.2em] mb-6">Prochaines messes</h3>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <div class="bg-white/10 rounded-lg px-2.5 py-1.5 text-center shrink-0">
+                <p class="text-[10px] font-bold uppercase text-gold-400">Dim</p>
+                <p class="text-sm font-bold">9h30</p>
+              </div>
+              <div>
+                <p class="text-white/80 text-sm font-medium">Messe dominicale</p>
+                <p class="text-white/40 text-xs">Principale</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="bg-white/10 rounded-lg px-2.5 py-1.5 text-center shrink-0">
+                <p class="text-[10px] font-bold uppercase text-gold-400">Sam</p>
+                <p class="text-sm font-bold">18h</p>
+              </div>
+              <div>
+                <p class="text-white/80 text-sm font-medium">Messe anticipée</p>
+                <p class="text-white/40 text-xs">Dimanche</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="bg-white/10 rounded-lg px-2.5 py-1.5 text-center shrink-0">
+                <p class="text-[10px] font-bold uppercase text-gold-400">Lun</p>
+                <p class="text-sm font-bold">6h30</p>
+              </div>
+              <div>
+                <p class="text-white/80 text-sm font-medium">Messe de semaine</p>
+                <p class="text-white/40 text-xs">Du lundi au samedi</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="border-t border-white/10">
+      <div class="max-w-7xl mx-auto px-6 md:px-12 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-white/30 text-xs">© 2025 Paroisse Saint Maximilien de Kolbe. Tous droits réservés.</p>
+        <p class="text-white/30 text-xs flex items-center gap-1">
+          Fait avec <span class="iconify text-red-400" data-icon="mdi:heart"></span> pour la gloire de Dieu
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">
+    <div class="flex items-center gap-3">
+      <span class="iconify text-gold-400 text-xl" data-icon="mdi:check-circle"></span>
+      <span id="toast-message" class="text-sm">Message envoyé avec succès !</span>
+    </div>
+  </div>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 80) {
+        navbar.classList.add('nav-scrolled');
+      } else {
+        navbar.classList.remove('nav-scrolled');
+      }
+    });
+
+    // Mobile menu toggle
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      const icon = mobileBtn.querySelector('.iconify');
+      if (mobileMenu.classList.contains('hidden')) {
+        icon.setAttribute('data-icon', 'mdi:menu');
+      } else {
+        icon.setAttribute('data-icon', 'mdi:close');
+      }
+    });
+
+    // Close mobile menu on link click
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileBtn.querySelector('.iconify').setAttribute('data-icon', 'mdi:menu');
+      });
+    });
+
+    // Scroll reveal animation
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Contact form submission
+    const contactForm = document.getElementById('contact-form');
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toast-message');
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      showToast('Votre message a été envoyé avec succès ! Nous vous répondrons bientôt.');
+      contactForm.reset();
+    });
+
+    function showToast(message) {
+      toastMessage.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 4000);
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
